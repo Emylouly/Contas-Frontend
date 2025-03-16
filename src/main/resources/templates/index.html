@@ -3,19 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Livros</title>
-    <link rel="stylesheet" href="/css/stylesIndex.css">
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="/css/stylesUsuario.css">
 </head>
 <body>
     <div class="header">
-        <h1>Clique no botão abaixo para acessar a lista de Livros</h1>
+        <h1>Lista de Usuários</h1>
     </div>
 
-    <form action="/usuario/listall">
+    <!-- Exibição de mensagens -->
+    <div th:if="${deleteUsuario}" class="alert success">
+        <p th:text="${deleteUsuario}"></p>
+    </div>
 
-        <button>Seguir para a página de interação com os livros</button>
+    <div th:if="${erro}" class="alert error">
+        <p th:text="${erro}"></p>
+    </div>
 
-    </form>
+    <div class="container">
+        <div class="buttons">
+            <button class="btn blue">Adicionar Novo Usuário</button>
+            <button class="btn blue">Pesquisar Usuário</button>
+        </div>
 
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Login</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${listaUsuario}">
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.cpf}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.login}"></td>
+                    <td class="acoes-btn">
+                        <button class="btn-visualizar" th:onclick="|window.location='@{/usuario/view/{id}(id=${usuario.idusuario})}'|">
+                            Visualizar</button>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-deletar" th:onclick="|if(confirm('Tem certeza que deseja deletar?')) window.location='@{/usuario/delete/{id}(id=${usuario.idusuario})}'|">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </body>
 </html>

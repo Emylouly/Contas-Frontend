@@ -2,7 +2,6 @@ package br.edu.ifba.demo.frontend.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +29,16 @@ public class UsuarioService {
             .collectList()
             .block(); // Bloqueia até que os dados sejam retornados
     }
+
+    public UsuarioDTO getById(Long idusuario){
+        Mono<UsuarioDTO> monoObj = this.webClient
+        .get() 
+        .uri("/buscarporid/{id}", idusuario)
+        .retrieve()
+        .bodyToMono(UsuarioDTO.class);
+        return monoObj.block();
+        
+    }
     
 
     public void addUsuario(UsuarioDTO usuarioDTO){
@@ -52,18 +61,8 @@ public class UsuarioService {
         return salvar != null;
     }
 
-    public boolean deletarUsuarios(int id){
-        Mono<UsuarioDTO> usuarioList = this.webClient
-            .method(HttpMethod.DELETE)  
-            .uri("/delete/{id}", id)
-            .retrieve()
-            .bodyToMono(UsuarioDTO.class);
-        
-        UsuarioDTO usu = usuarioList.block();
-        if (usu!=null) {
-            return true;
-        }
-        return false;
+    public void deletarUsuarios(Long id){
+        restTemplate.delete(BASE_URL + "/delete/{id}", id);
 
     }
 

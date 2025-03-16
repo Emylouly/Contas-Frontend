@@ -11,6 +11,15 @@
         <h1>Lista de Usuários</h1>
     </div>
 
+    <div th:if="${erroDelete}" class="alert alert-danger">
+        <p th:text="${erroDelete}"></p>
+    </div>
+    
+    <div th:if="${deleteUsuario}" class="alert alert-success">
+        <p th:text="${deleteUsuario}"></p>
+    </div>
+    
+
     <div class="container">
         <div class="buttons">
             <button class="btn blue">Adicionar Novo Usuário</button>
@@ -34,9 +43,12 @@
                     <td th:text="${usuario.email}"></td>
                     <td th:text="${usuario.login}"></td>
                     <td class="acoes-btn">
-                        <button class="btn-visualizar">Visualizar</button>
+                        <button class="btn-visualizar" th:onclick="|window.location='@{/usuario/view/{id}(id=${usuario.idusuario})}'|">
+                            Visualizar</button>
                         <button class="btn-editar">Editar</button>
-                        <button class="btn-deletar">Excluir</button>
+                        <button class="btn-deletar" th:onclick="|if(confirm('Tem certeza que deseja deletar?')) window.location='@{/usuario/delete/{id}(id=${usuario.idusuario})}'|">
+                            Excluir
+                        </button>
                     </td>
                 </tr>
             </tbody>
