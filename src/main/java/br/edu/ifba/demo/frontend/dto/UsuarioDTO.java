@@ -9,7 +9,7 @@ public class UsuarioDTO {
     private String email;
     private String login;
     private String senha;
-    private EnderecoDTO idendereco;
+    private EnderecoDTO endereco;
 
 }
 

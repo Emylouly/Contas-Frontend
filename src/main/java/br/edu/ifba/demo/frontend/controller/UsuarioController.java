@@ -2,9 +2,10 @@ package br.edu.ifba.demo.frontend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import br.edu.ifba.demo.frontend.service.ContasService;
 import br.edu.ifba.demo.frontend.service.UsuarioService;
 
 @Controller
@@ -13,8 +14,12 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private ContasService contasService; // Listar todos os livros
 
-    
+    @GetMapping("/listall")
+    public ModelAndView listarUsuarios() {
+        ModelAndView model = new ModelAndView("usuario");
+        model.addObject("listaUsuario", usuarioService.listAllUsuarios());
+        return model;
+    }
+
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="/css/stylesUsuario.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lista de Usuários</h1>
+    </div>
+
+    <div class="container">
+        <div class="buttons">
+            <button class="btn blue">Adicionar Novo Usuário</button>
+            <button class="btn blue">Pesquisar Usuário</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Login</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${listaUsuario}">
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.cpf}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.login}"></td>
+                    <td class="acoes-btn">
+                        <button class="btn-visualizar">Visualizar</button>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-deletar">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

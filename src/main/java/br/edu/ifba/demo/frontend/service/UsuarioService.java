@@ -22,9 +22,15 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> listAllUsuarios(){
-        return this.webClient.method(HttpMethod.GET).uri("/listall").retrieve().bodyToFlux(UsuarioDTO.class)
-        .collectList().block();
+        return webClient.get()
+            .uri("/listall")
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToFlux(UsuarioDTO.class)
+            .collectList()
+            .block(); // Bloqueia até que os dados sejam retornados
     }
+    
 
     public void addUsuario(UsuarioDTO usuarioDTO){
         this.webClient.post()
@@ -49,7 +55,7 @@ public class UsuarioService {
     public boolean deletarUsuarios(int id){
         Mono<UsuarioDTO> usuarioList = this.webClient
             .method(HttpMethod.DELETE)  
-            .uri("/deletar/{id}", id)
+            .uri("/delete/{id}", id)
             .retrieve()
             .bodyToMono(UsuarioDTO.class);
         
