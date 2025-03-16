@@ -8,48 +8,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import br.edu.ifba.demo.frontend.dto.GeneroDTO;
+import br.edu.ifba.demo.frontend.dto.ContasDTO;
 
 @Service
-public class GeneroService {
-    private final String BASE_URL = "http://localhost:8081/genero";
+public class ContasService {
+    private final String BASE_URL = "http://localhost:8081/contas";
     private final RestTemplate restTemplate = new RestTemplate();
     private final WebClient webClient;
 
-    public GeneroService() {
+    public ContasService() {
         this.webClient = WebClient.builder().baseUrl(BASE_URL).build();
     }
 
-    public List<GeneroDTO> listAllGeneros() {
-        return this.webClient.method(HttpMethod.GET).uri("/listall").retrieve().bodyToFlux(GeneroDTO.class)
+    public List<ContasDTO> listAllContas() {
+        return this.webClient.method(HttpMethod.GET).uri("/listall").retrieve().bodyToFlux(ContasDTO.class)
                 .collectList().block();
     }
 
-    public void addGenero(GeneroDTO generoDTO) {
+    public void addContas(ContasDTO contasDTO) {
         this.webClient.post()
-                .uri("/salvar") // Correto para gêneros
-                .bodyValue(generoDTO)
+                .uri("/salvar")
+                .bodyValue(contasDTO)
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
 
     }
 
-    public boolean salvarEatualizar(GeneroDTO generoDTO) {
-        GeneroDTO salvar = this.webClient.post()
+    public boolean salvarEatualizar(ContasDTO contasDTO) {
+        ContasDTO salvar = this.webClient.post()
                 .uri("/salvar")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(generoDTO)
+                .bodyValue(contasDTO)
                 .retrieve()
-                .bodyToMono(GeneroDTO.class)
+                .bodyToMono(ContasDTO.class)
                 .block();
         return salvar != null;
     }
     
 
-    public void deletarGenero(Long id) {
+    public void deletarContas(Long id) {
         this.webClient.delete()
-                .uri("/deletar/{id}", id)
+                .uri("/delete/{id}", id)
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();

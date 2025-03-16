@@ -2,43 +2,54 @@ package br.edu.ifba.demo.frontend.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import br.edu.ifba.demo.frontend.dto.UsuarioDTO;
-import jakarta.annotation.PostConstruct;
 import reactor.core.publisher.Mono;
 
 @Service
 public class UsuarioService {
-    @Autowired
-    
-    private WebClient.Builder webClientBuilder;
-    private WebClient webClient;
+    private final String BASE_URL = "http://localhost:8081/usuario";
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final WebClient webClient;
 
-    @PostConstruct
-    public void init() {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/usuario").build();
+    public UsuarioService() {
+        this.webClient = WebClient.builder().baseUrl(BASE_URL).build();
     }
 
     public List<UsuarioDTO> listAllUsuarios(){
-        Mono<List<UsuarioDTO>> usuarioList = this.webClient
-            .method(HttpMethod.GET)
-            .uri("usuario/listall")
-            .retrieve()
-            .bodyToFlux(UsuarioDTO.class)
-            .collectList();
-        
-        List<UsuarioDTO> list = usuarioList.block();
-        return list;
+        return this.webClient.method(HttpMethod.GET).uri("/listall").retrieve().bodyToFlux(UsuarioDTO.class)
+        .collectList().block();
     }
 
-    public boolean delete(int id_usuario){
+    public void addUsuario(UsuarioDTO usuarioDTO){
+        this.webClient.post()
+                .uri("/salvar") // Correto para gêneros
+                .bodyValue(usuarioDTO)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
+    public boolean salvarEatualizar(UsuarioDTO usuarioDTO){
+        UsuarioDTO salvar = this.webClient.post()
+        .uri("/salvar")
+        .contentType(MediaType.APPLICATION_JSON)
+        .bodyValue(usuarioDTO)
+        .retrieve()
+        .bodyToMono(UsuarioDTO.class)
+        .block();
+        return salvar != null;
+    }
+
+    public boolean deletarUsuarios(int id){
         Mono<UsuarioDTO> usuarioList = this.webClient
             .method(HttpMethod.DELETE)  
-            .uri("usuario/{id}", id_usuario)
+            .uri("/deletar/{id}", id)
             .retrieve()
             .bodyToMono(UsuarioDTO.class);
         
