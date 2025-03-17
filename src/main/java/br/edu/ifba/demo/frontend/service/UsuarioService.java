@@ -27,7 +27,7 @@ public class UsuarioService {
             .retrieve()
             .bodyToFlux(UsuarioDTO.class)
             .collectList()
-            .block(); // Bloqueia até que os dados sejam retornados
+            .block();
     }
 
     public UsuarioDTO getById(Long idusuario){
@@ -41,16 +41,16 @@ public class UsuarioService {
     }
     
 
-    public void addUsuario(UsuarioDTO usuarioDTO){
+    public void criar(UsuarioDTO usuarioDTO){
         this.webClient.post()
-                .uri("/salvar") // Correto para gêneros
+                .uri("/criar")
                 .bodyValue(usuarioDTO)
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
     }
 
-    public boolean salvarEatualizar(UsuarioDTO usuarioDTO){
+    public boolean atualizar(UsuarioDTO usuarioDTO){
         UsuarioDTO salvar = this.webClient.post()
         .uri("/salvar")
         .contentType(MediaType.APPLICATION_JSON)

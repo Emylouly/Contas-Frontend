@@ -3,19 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Livros</title>
+    <title>Cadastro e Login</title>
     <link rel="stylesheet" href="/css/stylesIndex.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Clique no botão abaixo para acessar a lista de Livros</h1>
+    <div class="container">
+        <!-- Formulário de Cadastro -->
+        <div class="form-box">
+            <h2>Cadastro</h2>
+            <form id="cadastroForm">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" class="form-control" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginCadastro">Login</label>
+                    <input type="text" id="loginCadastro" class="form-control" placeholder="Digite seu login" required>
+                </div>
+                <div class="form-group">
+                    <label for="emailCadastro">Email</label>
+                    <input type="email" id="emailCadastro" class="form-control" placeholder="Digite seu email" required>
+                </div>
+                <div class="form-group">
+                    <label for="senhaCadastro">Senha</label>
+                    <input type="password" id="senhaCadastro" class="form-control" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="form-box">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsuario">Login</label>
+                    <input type="text" id="loginUsuario" class="form-control" placeholder="Digite seu login" required>
+                </div>
+                <div class="form-group">
+                    <label for="senhaLogin">Senha</label>
+                    <input type="password" id="senhaLogin" class="form-control" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Entrar</button>
+                <p id="erroLogin" style="color: red; display: none;">Login ou senha inválidos!</p>
+            </form>            
+        </div>
     </div>
 
-    <form action="/usuario/listall">
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        <button>Seguir para a página de interação com os livros</button>
+            const login = document.getElementById("loginUsuario").value;
+            const senha = document.getElementById("senhaLogin").value;
 
-    </form>
+            fetch("http://localhost:8081/usuario/login", { // Corrigida a URL da API
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ login: login, senha: senha })
+            })
+            .then(response => {
+                console.log("Status:", response.status);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Login falhou");
+                }
+            })
+            .then(data => {
+                console.log("Usuário logado:", data);
+                localStorage.setItem("usuarioLogado", JSON.stringify(data));
+                window.location.href = "usuario/listall";
+            })
+            .catch(error => {
+                document.getElementById("erroLogin").style.display = "block";
+                console.error("Erro no login:", error);
+            });
+        });
+    </script>
 
 </body>
 </html>
