@@ -2,7 +2,6 @@ package br.edu.ifba.demo.frontend.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,10 +19,26 @@ public class ContasService {
         this.webClient = WebClient.builder().baseUrl(BASE_URL).build();
     }
 
-    public List<ContasDTO> listAllContas() {
-        return this.webClient.method(HttpMethod.GET).uri("/listall").retrieve().bodyToFlux(ContasDTO.class)
-                .collectList().block();
+    public List<ContasDTO> listAllContas(){
+        return webClient.get()
+            .uri("/listall")
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToFlux(ContasDTO.class)
+            .collectList()
+            .block();
     }
+
+    public List<ContasDTO> listarContasPorUsuario(Long idusuario) {
+        return webClient.get()
+            .uri("/buscarporidusuario/{idusuario}", idusuario)
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToFlux(ContasDTO.class)
+            .collectList()
+            .block();
+    }
+    
 
     public void addContas(ContasDTO contasDTO) {
         this.webClient.post()

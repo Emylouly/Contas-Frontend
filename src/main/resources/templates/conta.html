@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Contas</title>
+    <link rel="stylesheet" href="/css/stylesConta.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lista de Contas do Usuário</h1>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data Vencimento</th>
+                    <th>Data Pagamento</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="conta : ${listaConta}">
+                    <td th:text="${conta.descricao}"></td>
+                    <td th:text="${conta.valor}"></td>
+                    <td th:text="${conta.datavencimento}"></td>
+                    <td th:text="${conta.datapagamento}"></td>
+                    <td th:text="${conta.tipoconta}"></td>
+                    <td th:text="${conta.statuscontas ? 'Paga' : 'Pendente'}"></td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-deletar" th:onclick="|if(confirm('Tem certeza que deseja deletar?')) window.location='@{/contas/delete/{id}(id=${conta.idcontas})}'|">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/usuario/listall" class="btn-voltar">Voltar</a>
+    </div>
+</body>
+</html>
