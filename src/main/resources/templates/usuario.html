@@ -19,23 +19,13 @@
         <p th:text="${deleteUsuario}"></p>
     </div>
     
-
     <div class="container">
         <div class="buttons">
-            <button class="btn blue">Adicionar Novo Usuário</button>
-            <button class="btn blue">Pesquisar Usuário</button>
+            <button class="btn-cadastrar">Adicionar Novo Usuário</button>
+            <button class="btn-cadastrar">Pesquisar Usuário</button>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Email</th>
-                    <th>Login</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -64,18 +54,17 @@
                     <td th:text="${usuario.numero}"></td>
                     <td th:text="${usuario.cep}"></td>
                     <td class="acoes-btn">
-                        <button class="btn-visualizar" th:onclick="|window.location='@{/usuario/view/{id}(id=${usuario.idusuario})}'|">
-                            Visualizar</button>
                         <button class="btn-editar">Editar</button>
                         <button class="btn-deletar" th:onclick="|if(confirm('Tem certeza que deseja deletar?')) window.location='@{/usuario/delete/{id}(id=${usuario.idusuario})}'|">
                             Excluir
-                        </button>
+                        </button>                        
+                        <button class="btn-contas">Visualizar Contas</button>
+
+
                     </td>
                 </tr>
-            </tbody>
-            
+            </tbody>            
         </table>
     </div>
-    
 </body>
 </html>
