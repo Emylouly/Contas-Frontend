@@ -2,11 +2,12 @@ package br.edu.ifba.demo.frontend.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifba.demo.frontend.dto.ContasDTO;
 
@@ -53,16 +54,18 @@ public class ContasService {
     }
     
 
-    public void deletarContas(Long id, RedirectAttributes redirectAttributes) {
-        try {
-            String url = BASE_URL + "/delete/" + id;
-            restTemplate.delete(url);
-            System.out.println("Requisição DELETE enviada para: " + url); // Log para depuração
-            redirectAttributes.addFlashAttribute("deleteConta", "Conta excluída com sucesso!");
-        } catch (Exception e) {
-            System.err.println("Erro ao excluir conta: " + e.getMessage()); // Log de erro
-            redirectAttributes.addFlashAttribute("erroDelete", "Não é possível excluir a conta, pois há parcelas vinculadas a ela.");
-        }
+    public String deletarContas(Long id) {
+    try {
+        String url = BASE_URL + "/delete/" + id;
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);
+        
+        System.out.println("Resposta do servidor: " + response.getBody()); // Log para depuração
+        return response.getBody(); // Retorna a mensagem do backend
+    } catch (Exception e) {
+        System.err.println("Erro ao excluir conta: " + e.getMessage());
+        return "Erro ao excluir conta.";
     }
+}
+
     
 }

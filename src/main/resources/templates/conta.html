@@ -11,6 +11,15 @@
         <h1>Lista de Contas do Usuário</h1>
     </div>
 
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+    
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    
+
     <div class="container">
         <table class="table">
             <thead>

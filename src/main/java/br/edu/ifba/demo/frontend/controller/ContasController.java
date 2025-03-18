@@ -32,8 +32,16 @@ public class ContasController {
 
     @GetMapping("/delete/{id}/{idusuario}")
     public String deletarConta(@PathVariable Long id, @PathVariable Long idusuario, RedirectAttributes redirectAttributes) {
-        contasService.deletarContas(id, redirectAttributes);
+        String mensagem = contasService.deletarContas(id);
+        
+        if (mensagem.equals("Conta excluída com sucesso!")) {
+            redirectAttributes.addFlashAttribute("successMessage", mensagem);
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", mensagem);
+        }
+
         return "redirect:/contas/listall/" + idusuario;
     }
+
 
 }
