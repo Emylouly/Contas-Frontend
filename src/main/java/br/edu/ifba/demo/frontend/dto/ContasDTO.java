@@ -14,7 +14,7 @@ public class ContasDTO implements Serializable {
     private LocalDate datapagamento;
     private String tipoconta;
     private boolean statuscontas;
-    private UsuarioDTO idusuario;
     private String categoriadescricao;
     private String tipo;
+    private UsuarioDTO idusuario;
 }

@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifba.demo.frontend.dto.ContasDTO;
 
@@ -17,16 +18,6 @@ public class ContasService {
 
     public ContasService() {
         this.webClient = WebClient.builder().baseUrl(BASE_URL).build();
-    }
-
-    public List<ContasDTO> listAllContas(){
-        return webClient.get()
-            .uri("/listall")
-            .accept(MediaType.APPLICATION_JSON)
-            .retrieve()
-            .bodyToFlux(ContasDTO.class)
-            .collectList()
-            .block();
     }
 
     public List<ContasDTO> listarContasPorUsuario(Long idusuario) {
@@ -62,12 +53,13 @@ public class ContasService {
     }
     
 
-    public void deletarContas(Long id) {
-        this.webClient.delete()
-                .uri("/delete/{id}", id)
-                .retrieve()
-                .bodyToMono(Void.class)
-                .block();
+    public void deletarContas(Long id, RedirectAttributes redirectAttributes) {
+    try {
+        restTemplate.delete(BASE_URL + "/delete/{id}", id);
+        redirectAttributes.addFlashAttribute("deleteConta", "Conta excluída com sucesso!");
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("erroDelete", "Não é possível excluir a conta, pois há parcelas vinculadas a ele.");
     }
+}
     
 }
