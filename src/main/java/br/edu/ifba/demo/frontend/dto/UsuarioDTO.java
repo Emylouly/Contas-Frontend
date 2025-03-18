@@ -9,7 +9,12 @@ public class UsuarioDTO {
     private String email;
     private String login;
     private String senha;
-    private EnderecoDTO endereco;
+    private String estado;
+    private String cidade;
+    private String bairro;
+    private String rua;
+    private String numero;
+    private String cep;
 
 }
 

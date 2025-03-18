@@ -29,10 +29,6 @@ public class UsuarioController {
     @GetMapping("/view/{id}")
     public ModelAndView visualizarUsuario(@PathVariable("id") Long id) {
         UsuarioDTO usuario = usuarioService.getById(id);
-            if (usuario.getEndereco() == null) {
-            usuario.setEndereco(new EnderecoDTO());
-        }
-
         ModelAndView model = new ModelAndView("usuario/form");
         model.addObject("usuario", usuario);
         model.addObject("view", true); // Indica que está no modo de visualização

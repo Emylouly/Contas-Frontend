@@ -22,13 +22,13 @@ public class UsuarioService {
 
     public List<UsuarioDTO> listAllUsuarios(){
         return webClient.get()
-            .uri("/listall")
+            .uri("/listalldados")
             .accept(MediaType.APPLICATION_JSON)
             .retrieve()
             .bodyToFlux(UsuarioDTO.class)
             .collectList()
             .block();
-    }
+    }    
 
     public UsuarioDTO getById(Long idusuario){
         Mono<UsuarioDTO> monoObj = this.webClient
