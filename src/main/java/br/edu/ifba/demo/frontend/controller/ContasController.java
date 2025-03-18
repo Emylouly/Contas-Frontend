@@ -30,11 +30,10 @@ public class ContasController {
         return model;
     }
 
-    @GetMapping("/delete/{id}")
-    public String deletarConta(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/delete/{id}/{idusuario}")
+    public String deletarConta(@PathVariable Long id, @PathVariable Long idusuario, RedirectAttributes redirectAttributes) {
         contasService.deletarContas(id, redirectAttributes);
-        return "redirect:/contas/listall";
+        return "redirect:/contas/listall/" + idusuario;
     }
-
 
 }

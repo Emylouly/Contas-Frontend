@@ -54,12 +54,15 @@ public class ContasService {
     
 
     public void deletarContas(Long id, RedirectAttributes redirectAttributes) {
-    try {
-        restTemplate.delete(BASE_URL + "/delete/{id}", id);
-        redirectAttributes.addFlashAttribute("deleteConta", "Conta excluída com sucesso!");
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("erroDelete", "Não é possível excluir a conta, pois há parcelas vinculadas a ele.");
+        try {
+            String url = BASE_URL + "/delete/" + id;
+            restTemplate.delete(url);
+            System.out.println("Requisição DELETE enviada para: " + url); // Log para depuração
+            redirectAttributes.addFlashAttribute("deleteConta", "Conta excluída com sucesso!");
+        } catch (Exception e) {
+            System.err.println("Erro ao excluir conta: " + e.getMessage()); // Log de erro
+            redirectAttributes.addFlashAttribute("erroDelete", "Não é possível excluir a conta, pois há parcelas vinculadas a ela.");
+        }
     }
-}
     
 }
