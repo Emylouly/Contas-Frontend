@@ -15,6 +15,8 @@ public class UsuarioDTO {
     private String rua;
     private String numero;
     private String cep;
+    private String telefonenumero;
+    private String tiponumero;
 
 }
 

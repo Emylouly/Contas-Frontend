@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class TelefoneDTO {
     private long idtelefone;
-    private String numero;
+    private String telefonenumero;
     private String tiponumero;
-    private UsuarioDTO idUsuario;
 }
