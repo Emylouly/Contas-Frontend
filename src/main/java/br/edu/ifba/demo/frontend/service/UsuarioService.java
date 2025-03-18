@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifba.demo.frontend.dto.UsuarioDTO;
 import reactor.core.publisher.Mono;
@@ -28,7 +29,7 @@ public class UsuarioService {
             .bodyToFlux(UsuarioDTO.class)
             .collectList()
             .block();
-    }    
+    }
 
     public UsuarioDTO getById(Long idusuario){
         Mono<UsuarioDTO> monoObj = this.webClient
@@ -61,12 +62,15 @@ public class UsuarioService {
         return salvar != null;
     }
 
-    public void deletarUsuarios(Long id){
+    public void deletarUsuarios(Long id, RedirectAttributes redirectAttributes) {
+    try {
         restTemplate.delete(BASE_URL + "/delete/{id}", id);
-
+        redirectAttributes.addFlashAttribute("deleteUsuario", "Usuário excluído com sucesso!");
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("erroDelete", "Não é possível excluir o usuário, pois há contas vinculadas a ele.");
     }
+}
 
-    
 
 
 }

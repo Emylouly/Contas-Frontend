@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.ifba.demo.frontend.dto.EnderecoDTO;
 import br.edu.ifba.demo.frontend.dto.UsuarioDTO;
 import br.edu.ifba.demo.frontend.service.UsuarioService;
 
@@ -36,9 +35,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletarUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        usuarioService.deletarUsuarios(id);
-        redirectAttributes.addFlashAttribute("deleteUsuario", "Usuário excluído com sucesso!");
+    public String deletarUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        usuarioService.deletarUsuarios(id, redirectAttributes);
         return "redirect:/usuario/listall";
     }
 
