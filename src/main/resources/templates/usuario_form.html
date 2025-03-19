@@ -100,7 +100,7 @@
         </div>
 
         <!-- Link para voltar -->
-        <a href="/usuario/listall">Voltar para a lista de usuários</a>
+        <a href="/">Voltar para a página inicial</a>
     </form>
 
     <script>
@@ -131,7 +131,7 @@
             .then(response => {
                 if (response.ok) {
                     alert("Usuário criado com sucesso!");
-                    window.location.href = "/usuario/listall"; // Redireciona para a lista de usuários
+                    window.location.href = "/"; // Redireciona para a lista de usuários
                 } else {
                     response.json().then(data => {
                         alert("Erro: " + data); // Exibe a mensagem de erro do backend

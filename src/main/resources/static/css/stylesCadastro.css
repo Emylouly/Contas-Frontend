@@ -11,6 +11,7 @@ body {
     height: 100vh;
 }
 
+
 h2 {
     text-align: center;
     color: #333;
@@ -28,12 +29,17 @@ form {
 
 .form-row {
     display: flex;
-    gap: 15px; /* Espaçamento entre os campos */
+    justify-content: space-between;
+    gap: 20px; /* Espaçamento entre os campos */
     margin-bottom: 15px;
 }
 
 .form-group {
     flex: 1; /* Faz com que os campos ocupem o espaço disponível */
+}
+
+.form-group input {
+    width: 100%;
 }
 
 label {
