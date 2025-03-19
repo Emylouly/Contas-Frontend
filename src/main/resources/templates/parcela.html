@@ -24,40 +24,27 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Descrição</th>
+                    <th>Data de Vencimento</th>
+                    <th>Numero da Parcela</th>
                     <th>Valor</th>
-                    <th>Data Vencimento</th>
-                    <th>Data Pagamento</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Categoria</th>
-                    <th>Tipo</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="conta : ${listaConta}">
-                    <td th:text="${conta.descricao}"></td>
-                    <td th:text="${conta.valor}"></td>
-                    <td th:text="${conta.datavencimento}"></td>
-                    <td th:text="${conta.datapagamento}"></td>
-                    <td th:text="${conta.tipoconta}"></td>
-                    <td th:text="${conta.statuscontas ? 'Paga' : 'Pendente'}"></td>
-                    <td th:text="${conta.categoriadescricao}"></td>
-                    <td th:text="${conta.tipo}"></td>
+                <tr th:each="parcela : ${listParcela}">
+                    <td th:text="${parcela.datavencimento}"></td>
+                    <td th:text="${parcela.numeroparcela}"></td>
+                    <td th:text="${parcela.valorparcela}"></td>
                     <td>
                         <button class="btn-editar">Editar</button>
                         <button class="btn-deletar" th:attr="onclick='if(confirm(\'Tem certeza que deseja deletar?\')) window.location=\'/contas/delete/' + ${conta.idcontas} + '/' + ${conta.idusuario.idusuario} + '\''">
                             Excluir
                         </button>
-                        <button class="btn-contas" th:onclick="|window.location.href='/parcela/listall/' + ${conta.idcontas}|">
-                            Visualizar Parcelas
-                        </button>                        
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a href="/usuario/listall" class="btn-voltar">Voltar</a>
+        <a href="/contas/listall" class="btn-voltar">Voltar</a>
     </div>
 
     </script>
