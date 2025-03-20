@@ -43,5 +43,10 @@ public class ContasController {
         return "redirect:/contas/listall/" + idusuario;
     }
 
+    @GetMapping("/form")
+    public ModelAndView formularioConta(){
+        return new ModelAndView("contas_form");
+    }
+
 
 }

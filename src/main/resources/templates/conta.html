@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Contas</title>
+    <title>Minhas Contas</title>
     <link rel="stylesheet" href="/css/stylesConta.css">
 </head>
 <body>
     <div class="header">
-        <h1>Lista de Contas do Usuário</h1>
+        <h1>Minhas Contas</h1>
     </div>
 
     <div th:if="${successMessage}" class="alert alert-success">
@@ -21,6 +21,10 @@
     
 
     <div class="container">
+        <div class="buttons">
+            <a href="/contas/form">
+            <button class="btn-cadastrar">Adicionar Nova Conta</button></a>
+        </div>
         <table class="table">
             <thead>
                 <tr>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta</title>
+    <link rel="stylesheet" href="/css/stylesCadastro.css"> <!-- Link para o CSS -->
+</head>
+<body>
+    <form id="formCriarConta">
+        <h2>Criar Nova Conta</h2>
+        
+        <!-- Descrição da Conta -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" name="descricao" required>
+            </div>
+        </div>
+
+        <!-- Valor da Conta -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" name="valor" step="0.01" required>
+            </div>
+        </div>
+
+        <!-- Data de Vencimento -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="datavencimento">Data de Vencimento:</label>
+                <input type="date" id="datavencimento" name="datavencimento" required>
+            </div>
+        </div>
+
+        <!-- Data de Pagamento -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="datapagamento">Data de Pagamento:</label>
+                <input type="date" id="datapagamento" name="datapagamento">
+            </div>
+        </div>
+
+        <!-- Tipo de Conta -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="tipoconta">Tipo de Conta:</label>
+                <select id="tipoconta" name="tipoconta" required>
+                    <option value="Fixa">Fixa</option>
+                    <option value="Variável">Variável</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Status da Conta -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="statuscontas">Status:</label>
+                <select id="statuscontas" name="statuscontas" required>
+                    <option value="true">Paga</option>
+                    <option value="false">Pendente</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ID do Usuário -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="idusuario">ID do Usuário:</label>
+                <input type="number" id="idusuario" name="idusuario" required>
+            </div>
+        </div>
+
+        <!-- ID da Categoria -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="categoriadescricao">Descrição da Categoria:</label>
+                <input type="text" id="categoriadescricao" name="categoriadescricao" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="tipo">Tipo da Categoria:</label>
+                <input type="text" id="tipo" name="tipo" required>
+            </div>
+        </div>
+
+        <!-- Botão de submit -->
+        <div class="form-row">
+            <button type="submit">Criar Conta</button>
+        </div>
+
+        <!-- Link para voltar -->
+        <a href="/contas/listall">Voltar para a lista de contas</a>
+    </form>
+
+    <script>
+       document.getElementById("formCriarConta").addEventListener("submit", function (e) {
+            e.preventDefault(); // Evita o recarregamento da página
+
+            const conta = {
+                descricao: document.getElementById("descricao").value,
+                valor: parseFloat(document.getElementById("valor").value),
+                datavencimento: document.getElementById("datavencimento").value,
+                datapagamento: document.getElementById("datapagamento").value,
+                tipoconta: document.getElementById("tipoconta").value,
+                statuscontas: document.getElementById("statuscontas").value === "true",
+                categoriadescricao: document.getElementById("categoriadescricao").value, // Adicione este campo
+                tipo: document.getElementById("tipo").value // Adicione este campo
+            };
+
+            const usuarioId = parseInt(document.getElementById("idusuario").value); // Obtém o ID do usuário
+
+            fetch("http://localhost:8080/contas/criar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Usuario-ID": usuarioId // Envia o ID do usuário no cabeçalho
+                },
+                body: JSON.stringify(conta)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Conta criada com sucesso!");
+                    window.location.href = `/contas/listall/${usuarioId}`; // Redireciona para a lista de contas do usuário
+                } else {
+                    response.json().then(data => {
+                        alert("Erro: " + data); // Exibe a mensagem de erro do backend
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao enviar dados:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        });
+    </script>
+</body>
+</html>
