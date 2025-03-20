@@ -31,23 +31,18 @@ public class ParcelaController {
         return model;
     }
 
-    @Controller
-@RequestMapping("/parcela")
-public class ParcelaFrontController {
-
-    @Autowired
-    private ParcelaService parcelaService;
 
     @GetMapping("/delete/{id}")
     public String deletarParcela(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
-            parcelaService.deletarParcela(id); // Chama o método do service
+            Long idConta = parcelaService.deletarParcela(id); // Captura o ID da conta
             redirectAttributes.addFlashAttribute("successMessage", "Parcela deletada com sucesso!");
+            return "redirect:/parcela/listall/" + idConta; // Redireciona para a lista de parcelas da conta
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Erro ao deletar parcela: " + e.getMessage());
+            return "redirect:/parcela/listall"; // Redireciona para a lista geral em caso de erro
         }
-        return "redirect:/parcela/listall"; // Redireciona para a lista de parcelas
     }
 }
+
     
-}

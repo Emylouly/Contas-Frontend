@@ -29,12 +29,16 @@ public class ParcelaService {
             .block();
     }
 
-    public void deletarParcela(Long id) {
-        webClient.delete()
-            .uri("/delete/{id}", id)
-            .retrieve()
-            .toBodilessEntity()
-            .block();
+    public Long deletarParcela(Long id) {
+        try {
+            return webClient.delete()
+                .uri("/delete/{id}", id)
+                .retrieve()
+                .bodyToMono(Long.class) // Captura o ID da conta retornado pelo backend
+                .block();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar parcela: " + e.getMessage());
+        }
     }
     
 }
