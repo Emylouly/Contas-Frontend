@@ -21,8 +21,8 @@ public class ParcelaController {
 
 
     @GetMapping("/listall/{idconta}")
-    public ModelAndView listarParcelaPorConta(@PathVariable Long idcontas){
-        List<ParcelaDTO> parcelas = parcelaService.listarParcelaPorConta(idcontas);
+    public ModelAndView listarParcelaPorConta(@PathVariable Long idconta) {
+        List<ParcelaDTO> parcelas = parcelaService.listarParcelaPorConta(idconta);
         parcelas.forEach(parcela -> System.out.println(parcela));
 
         ModelAndView model = new ModelAndView("parcela");

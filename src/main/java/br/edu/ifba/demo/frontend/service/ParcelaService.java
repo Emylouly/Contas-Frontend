@@ -19,9 +19,9 @@ public class ParcelaService {
         this.webClient = WebClient.builder().baseUrl(BASE_URL).build();
     }
 
-    public List<ParcelaDTO> listarParcelaPorConta(Long idcontas) {
+    public List<ParcelaDTO> listarParcelaPorConta(Long idconta) {
         return webClient.get()
-            .uri("/buscarporconta/{idconta}", idcontas)
+            .uri("/buscarporconta/{idconta}", idconta)
             .accept(MediaType.APPLICATION_JSON)
             .retrieve()
             .bodyToFlux(ParcelaDTO.class)

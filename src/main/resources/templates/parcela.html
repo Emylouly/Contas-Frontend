@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Contas</title>
+    <title>Lista de Parcelas</title>
     <link rel="stylesheet" href="/css/stylesConta.css">
 </head>
 <body>
     <div class="header">
-        <h1>Lista de Contas do Usuário</h1>
+        <h1>Lista de Parcelas</h1>
     </div>
 
     <div th:if="${successMessage}" class="alert alert-success">
@@ -18,14 +18,13 @@
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
     </div>
-    
 
     <div class="container">
         <table class="table">
             <thead>
                 <tr>
                     <th>Data de Vencimento</th>
-                    <th>Numero da Parcela</th>
+                    <th>Número da Parcela</th>
                     <th>Valor</th>
                     <th>Ações</th>
                 </tr>
@@ -37,16 +36,14 @@
                     <td th:text="${parcela.valorparcela}"></td>
                     <td>
                         <button class="btn-editar">Editar</button>
-                        <button class="btn-deletar" th:attr="onclick='if(confirm(\'Tem certeza que deseja deletar?\')) window.location=\'/contas/delete/' + ${conta.idcontas} + '/' + ${conta.idusuario.idusuario} + '\''">
+                        <button class="btn-deletar" th:attr="onclick='if(confirm(\'Tem certeza que deseja deletar?\')) window.location=\'/parcela/delete/' + ${parcela.idparcela} + '\''">
                             Excluir
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a href="/contas/listall" class="btn-voltar">Voltar</a>
+        <a href="/usuario/listall" class="btn-voltar">Voltar</a>
     </div>
-
-    </script>
 </body>
 </html>
