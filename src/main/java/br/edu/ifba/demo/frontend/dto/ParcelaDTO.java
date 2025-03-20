@@ -8,7 +8,7 @@ import lombok.Data;
 public class ParcelaDTO {
     
     private long idparcela;
-    private LocalDate  datavencimento;
+    private LocalDate parceladatavencimento;
     private int numeroparcela;
     private double valorparcela;
     private ContasDTO idcontas;

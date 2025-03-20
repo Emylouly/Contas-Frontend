@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 <tr th:each="parcela : ${listParcela}">
-                    <td th:text="${parcela.datavencimento}"></td>
+                    <td th:text="${parcela.parceladatavencimento}"></td> <!-- Alterado para parceladatavencimento -->
                     <td th:text="${parcela.numeroparcela}"></td>
                     <td th:text="${parcela.valorparcela}"></td>
                     <td>
