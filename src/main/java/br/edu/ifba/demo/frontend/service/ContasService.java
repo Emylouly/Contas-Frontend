@@ -59,8 +59,8 @@ public class ContasService {
         String url = BASE_URL + "/delete/" + id;
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);
         
-        System.out.println("Resposta do servidor: " + response.getBody()); // Log para depuração
-        return response.getBody(); // Retorna a mensagem do backend
+        System.out.println("Resposta do servidor: " + response.getBody());
+        return response.getBody(); 
     } catch (Exception e) {
         System.err.println("Erro ao excluir conta: " + e.getMessage());
         return "Erro ao excluir conta.";

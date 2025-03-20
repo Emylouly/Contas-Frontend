@@ -23,7 +23,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Botão de adicionar novo usuário */
 .btn-cadastrar {
   background-color: #0d6efd;
   color: white;
@@ -40,10 +39,9 @@ body {
   background-color: #0b5ed7;
 }
 
-/* Estilização da Tabela */
 .table-container {
   width: 100%;
-  overflow-x: auto; /* Para rolagem horizontal caso necessário */
+  overflow-x: auto;
 }
 
 .table {
@@ -66,7 +64,6 @@ th {
   text-align: center;
 }
 
-/* Melhor organização das ações */
 .acoes-btn {
   display: flex;
   flex-direction: column;
@@ -74,7 +71,6 @@ th {
   gap: 5px;
 }
 
-/* Correção das cores dos botões */
 .btn-visualizar {
   background-color: #007bff;
   color: white;
@@ -102,7 +98,6 @@ th {
   cursor: pointer;
 }
 
-/* Novo botão "Visualizar Contas" */
 .btn-contas {
   background-color: #28a745;
   color: white;
@@ -116,7 +111,6 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Ajustes de Responsividade */
 @media screen and (max-width: 768px) {
   th, td {
     font-size: 14px;

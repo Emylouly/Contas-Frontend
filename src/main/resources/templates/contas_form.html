@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Conta</title>
-    <link rel="stylesheet" href="/css/stylesCadastro.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="/css/stylesCadastro.css">
 </head>
 <body>
     <form id="formCriarConta">
         <h2>Criar Nova Conta</h2>
         
-        <!-- Descrição da Conta -->
         <div class="form-row">
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
@@ -18,7 +17,6 @@
             </div>
         </div>
 
-        <!-- Valor da Conta -->
         <div class="form-row">
             <div class="form-group">
                 <label for="valor">Valor:</label>
@@ -26,7 +24,6 @@
             </div>
         </div>
 
-        <!-- Data de Vencimento -->
         <div class="form-row">
             <div class="form-group">
                 <label for="datavencimento">Data de Vencimento:</label>
@@ -34,7 +31,6 @@
             </div>
         </div>
 
-        <!-- Data de Pagamento -->
         <div class="form-row">
             <div class="form-group">
                 <label for="datapagamento">Data de Pagamento:</label>
@@ -42,7 +38,6 @@
             </div>
         </div>
 
-        <!-- Tipo de Conta -->
         <div class="form-row">
             <div class="form-group">
                 <label for="tipoconta">Tipo de Conta:</label>
@@ -53,7 +48,6 @@
             </div>
         </div>
 
-        <!-- Status da Conta -->
         <div class="form-row">
             <div class="form-group">
                 <label for="statuscontas">Status:</label>
@@ -64,7 +58,6 @@
             </div>
         </div>
 
-        <!-- ID do Usuário -->
         <div class="form-row">
             <div class="form-group">
                 <label for="idusuario">ID do Usuário:</label>
@@ -72,7 +65,6 @@
             </div>
         </div>
 
-        <!-- ID da Categoria -->
         <div class="form-row">
             <div class="form-group">
                 <label for="categoriadescricao">Descrição da Categoria:</label>
@@ -87,18 +79,16 @@
             </div>
         </div>
 
-        <!-- Botão de submit -->
         <div class="form-row">
             <button type="submit">Criar Conta</button>
         </div>
 
-        <!-- Link para voltar -->
         <a href="/contas/listall">Voltar para a lista de contas</a>
     </form>
 
     <script>
        document.getElementById("formCriarConta").addEventListener("submit", function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
+            e.preventDefault();
 
             const conta = {
                 descricao: document.getElementById("descricao").value,
@@ -107,27 +97,27 @@
                 datapagamento: document.getElementById("datapagamento").value,
                 tipoconta: document.getElementById("tipoconta").value,
                 statuscontas: document.getElementById("statuscontas").value === "true",
-                categoriadescricao: document.getElementById("categoriadescricao").value, // Adicione este campo
-                tipo: document.getElementById("tipo").value // Adicione este campo
+                categoriadescricao: document.getElementById("categoriadescricao").value,
+                tipo: document.getElementById("tipo").value
             };
 
-            const usuarioId = parseInt(document.getElementById("idusuario").value); // Obtém o ID do usuário
+            const usuarioId = parseInt(document.getElementById("idusuario").value);
 
             fetch("http://localhost:8080/contas/criar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Usuario-ID": usuarioId // Envia o ID do usuário no cabeçalho
+                    "Usuario-ID": usuarioId
                 },
                 body: JSON.stringify(conta)
             })
             .then(response => {
                 if (response.ok) {
                     alert("Conta criada com sucesso!");
-                    window.location.href = `/contas/listall/${usuarioId}`; // Redireciona para a lista de contas do usuário
+                    window.location.href = `/contas/listall/${usuarioId}`;
                 } else {
                     response.json().then(data => {
-                        alert("Erro: " + data); // Exibe a mensagem de erro do backend
+                        alert("Erro: " + data);
                     });
                 }
             })

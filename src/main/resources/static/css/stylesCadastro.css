@@ -1,5 +1,3 @@
-/* stylesCadastro.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -30,12 +28,12 @@ form {
 .form-row {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Espaçamento entre os campos */
+    gap: 20px;
     margin-bottom: 15px;
 }
 
 .form-group {
-    flex: 1; /* Faz com que os campos ocupem o espaço disponível */
+    flex: 1;
 }
 
 .form-group input {

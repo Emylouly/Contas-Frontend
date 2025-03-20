@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Usuário</title>
-    <link rel="stylesheet" href="/css/stylesCadastro.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="/css/stylesCadastro.css">
 </head>
 <body>
     <form id="formCriarUsuario">
         <h2>Criar Novo Usuário</h2>
         
-        <!-- Linha 1: Nome e E-mail -->
         <div class="form-row">
             <div class="form-group">
                 <label for="nome">Nome:</label>
@@ -22,7 +21,6 @@
             </div>
         </div>
 
-        <!-- Linha 2: Login e CPF -->
         <div class="form-row">
             <div class="form-group">
                 <label for="login">Login:</label>
@@ -34,7 +32,6 @@
             </div>
         </div>
 
-        <!-- Linha 3: Senha -->
         <div class="form-row">
             <div class="form-group">
                 <label for="senha">Senha:</label>
@@ -42,7 +39,6 @@
             </div>
         </div>
 
-        <!-- Linha 4: Endereço - Rua e Número -->
         <div class="form-row">
             <div class="form-group">
                 <label for="rua">Rua:</label>
@@ -54,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Linha 5: Endereço - Bairro -->
         <div class="form-row">
             <div class="form-group">
                 <label for="bairro">Bairro:</label>
@@ -62,7 +57,6 @@
             </div>
         </div>
 
-        <!-- Linha 6: Endereço - Cidade e Estado -->
         <div class="form-row">
             <div class="form-group">
                 <label for="cidade">Cidade:</label>
@@ -74,7 +68,6 @@
             </div>
         </div>
 
-        <!-- Linha 7: Endereço - CEP -->
         <div class="form-row">
             <div class="form-group">
                 <label for="cep">CEP:</label>
@@ -82,7 +75,6 @@
             </div>
         </div>
 
-        <!-- Linha 8: Telefone - Número e Tipo -->
         <div class="form-row">
             <div class="form-group">
                 <label for="telefonenumero">Número do Telefone:</label>
@@ -94,18 +86,16 @@
             </div>
         </div>
 
-        <!-- Botão de submit -->
         <div class="form-row">
             <button type="submit">Criar Usuário</button>
         </div>
 
-        <!-- Link para voltar -->
         <a href="/">Voltar para a página inicial</a>
     </form>
 
     <script>
         document.getElementById("formCriarUsuario").addEventListener("submit", function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
+            e.preventDefault(); 
 
             const usuario = {
                 nome: document.getElementById("nome").value,
@@ -119,8 +109,8 @@
                 rua: document.getElementById("rua").value,
                 numero: document.getElementById("numero").value,
                 cep: document.getElementById("cep").value,
-                telefonenumero: document.getElementById("telefonenumero").value, // Campo de telefone
-                tiponumero: document.getElementById("tiponumero").value // Tipo do telefone
+                telefonenumero: document.getElementById("telefonenumero").value, 
+                tiponumero: document.getElementById("tiponumero").value 
             };
 
             fetch("http://localhost:8081/usuario/criar", {
@@ -131,10 +121,10 @@
             .then(response => {
                 if (response.ok) {
                     alert("Usuário criado com sucesso!");
-                    window.location.href = "/"; // Redireciona para a lista de usuários
+                    window.location.href = "/"; 
                 } else {
                     response.json().then(data => {
-                        alert("Erro: " + data); // Exibe a mensagem de erro do backend
+                        alert("Erro: " + data); 
                     });
                 }
             })
