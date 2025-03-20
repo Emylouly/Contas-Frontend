@@ -28,5 +28,13 @@ public class ParcelaService {
             .collectList()
             .block();
     }
+
+    public void deletarParcela(Long id) {
+        webClient.delete()
+            .uri("/delete/{id}", id)
+            .retrieve()
+            .toBodilessEntity()
+            .block();
+    }
     
 }
