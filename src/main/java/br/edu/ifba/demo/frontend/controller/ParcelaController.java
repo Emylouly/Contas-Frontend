@@ -35,13 +35,27 @@ public class ParcelaController {
     @GetMapping("/delete/{id}")
     public String deletarParcela(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
-            Long idConta = parcelaService.deletarParcela(id); // Captura o ID da conta
+            Long idConta = parcelaService.deletarParcela(id);
             redirectAttributes.addFlashAttribute("successMessage", "Parcela deletada com sucesso!");
-            return "redirect:/parcela/listall/" + idConta; // Redireciona para a lista de parcelas da conta
+            return "redirect:/parcela/listall/" + idConta;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Erro ao deletar parcela: " + e.getMessage());
-            return "redirect:/parcela/listall"; // Redireciona para a lista geral em caso de erro
+            return "redirect:/parcela/listall";
         }
+    }
+
+    @GetMapping("/form")
+    public ModelAndView formularioParcela() {
+        return new ModelAndView("parcela_form");
+    }
+
+    @GetMapping("/editar/{id}")
+    public ModelAndView editarParcela(@PathVariable Long id) {
+        ParcelaDTO parcela = parcelaService.getById(id);
+        ModelAndView model = new ModelAndView("parcela_form");
+        model.addObject("parcela", parcela);
+        model.addObject("modoEdicao", true);
+        return model;
     }
 }
 

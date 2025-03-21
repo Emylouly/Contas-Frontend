@@ -20,6 +20,13 @@
     </div>
 
     <div class="container">
+        <!-- Botão para criar nova parcela -->
+        <div class="buttons">
+            <a href="/parcela/form">
+                <button class="btn-criar">Criar Nova Parcela</button>
+            </a>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -35,10 +42,12 @@
                     <td th:text="${parcela.numeroparcela}"></td>
                     <td th:text="${parcela.valorparcela}"></td>
                     <td>
-                        <button class="btn-editar">Editar</button>
+                        <button class="btn-editar" th:onclick="|window.location.href='/parcela/form/' + ${parcela.idparcela}|">
+                            Editar
+                        </button>
                         <button class="btn-deletar" 
-                        th:attr="onclick='if(confirm(\'Tem certeza que deseja deletar?\')) window.location=\'/parcela/delete/' + ${parcela.idparcela} + '\''">
-                        Excluir
+                            th:attr="onclick='if(confirm(\'Tem certeza que deseja deletar?\')) window.location=\'/parcela/delete/' + ${parcela.idparcela} + '\''">
+                            Excluir
                         </button>
                     </td>
                 </tr>

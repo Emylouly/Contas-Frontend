@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${modoEdicao} ? 'Editar Parcela' : 'Criar Parcela'"></title>
+    <link rel="stylesheet" href="/css/stylesCadastro.css">
+</head>
+<body>
+    <form id="formCriarParcela" th:action="${modoEdicao} ? '/parcela/editar/' + ${parcela.idparcela} : '/parcela/salvar'" method="post">
+        <h2 th:text="${modoEdicao} ? 'Editar Parcela' : 'Criar Parcela'"></h2>
+        
+        <input type="hidden" id="idparcela" name="idparcela" th:value="${parcela != null} ? ${parcela.idparcela} : ''">
+    
+        <div class="form-row">
+            <div class="form-group">
+                <label for="parceladatavencimento">Data de Vencimento:</label>
+                <input type="date" id="parceladatavencimento" name="parceladatavencimento" th:value="${parcela != null} ? ${parcela.parceladatavencimento} : ''" required>
+            </div>
+        </div>
+    
+        <div class="form-row">
+            <div class="form-group">
+                <label for="numeroparcela">Número da Parcela:</label>
+                <input type="number" id="numeroparcela" name="numeroparcela" th:value="${parcela != null} ? ${parcela.numeroparcela} : ''" required>
+            </div>
+        </div>
+    
+        <div class="form-row">
+            <div class="form-group">
+                <label for="valorparcela">Valor da Parcela:</label>
+                <input type="number" id="valorparcela" name="valorparcela" step="0.01" th:value="${parcela != null} ? ${parcela.valorparcela} : ''" required>
+            </div>
+        </div>
+    
+        <div class="form-row">
+            <button type="submit" th:text="${modoEdicao} ? 'Salvar Alterações' : 'Criar Parcela'"></button>
+        </div>
+    
+        <a href="/parcela/listall">Voltar para a lista de parcelas</a>
+    </form>
+
+    <script>
+        document.getElementById("formCriarParcela").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const parcela = {
+                idparcela: document.getElementById("idparcela").value,
+                parceladatavencimento: document.getElementById("parceladatavencimento").value,
+                numeroparcela: parseInt(document.getElementById("numeroparcela").value),
+                valorparcela: parseFloat(document.getElementById("valorparcela").value)
+            };
+
+            const url = parcela.idparcela ? `/parcela/editar/${parcela.idparcela}` : "/parcela/salvar";
+            const method = parcela.idparcela ? "PUT" : "POST";
+
+            fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(parcela)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(parcela.idparcela ? "Parcela atualizada com sucesso!" : "Parcela criada com sucesso!");
+                    window.location.href = "/parcela/listall";
+                } else {
+                    response.json().then(data => {
+                        alert("Erro: " + data);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao enviar dados:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        });
+    </script>
+</body>
+</html>

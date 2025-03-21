@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifba.demo.frontend.dto.ContasDTO;
-import br.edu.ifba.demo.frontend.dto.UsuarioDTO;
 import br.edu.ifba.demo.frontend.service.ContasService;
 
 @Controller

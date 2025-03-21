@@ -30,7 +30,7 @@ public class UsuarioController {
         UsuarioDTO usuario = usuarioService.getById(id);
         ModelAndView model = new ModelAndView("usuario/form");
         model.addObject("usuario", usuario);
-        model.addObject("view", true); // Indica que está no modo de visualização
+        model.addObject("view", true);
         return model;
     }
 

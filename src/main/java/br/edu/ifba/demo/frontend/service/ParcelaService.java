@@ -40,5 +40,13 @@ public class ParcelaService {
             throw new RuntimeException("Erro ao deletar parcela: " + e.getMessage());
         }
     }
+
+    public ParcelaDTO getById(Long idparcela) {
+        return webClient.get()
+            .uri("/buscarporid/{id}", idparcela) // Certifique-se de que o backend tem essa rota
+            .retrieve()
+            .bodyToMono(ParcelaDTO.class)
+            .block();
+    }
     
 }
