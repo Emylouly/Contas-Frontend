@@ -79,7 +79,7 @@
             <button type="submit" th:text="${modoEdicao} ? 'Salvar Alterações' : 'Criar Conta'"></button>
         </div>
 
-        <a href="/contas/listall">Voltar para a lista de contas</a>
+        <a href="/usuario/listall">Voltar para a lista de usuarios</a>
     </form>
 
     <script>
@@ -109,7 +109,7 @@
             .then(response => {
                 if (response.ok) {
                     alert(conta.idcontas ? "Conta atualizada com sucesso!" : "Conta criada com sucesso!");
-                    window.location.href = "/contas/listall";
+                    window.location.href = "/usuario/listall";
                 } else {
                     response.json().then(data => {
                         alert("Erro: " + data);
