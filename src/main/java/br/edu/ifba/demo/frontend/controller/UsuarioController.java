@@ -45,4 +45,13 @@ public class UsuarioController {
         return new ModelAndView("usuario_form");
     }
 
+    @GetMapping("/editar/{id}")
+    public ModelAndView editarUsuario(@PathVariable Long id) {
+        UsuarioDTO usuario = usuarioService.getById(id);
+        ModelAndView model = new ModelAndView("usuario_form");
+        model.addObject("usuario", usuario);
+        model.addObject("modoEdicao", true); 
+        return model;
+    }
+
 }

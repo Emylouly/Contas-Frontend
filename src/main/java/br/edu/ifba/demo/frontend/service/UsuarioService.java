@@ -31,14 +31,13 @@ public class UsuarioService {
             .block();
     }
 
-    public UsuarioDTO getById(Long idusuario){
+    public UsuarioDTO getById(Long idusuario) {
         Mono<UsuarioDTO> monoObj = this.webClient
-        .get() 
-        .uri("/buscarporid/{id}", idusuario)
-        .retrieve()
-        .bodyToMono(UsuarioDTO.class);
+            .get() 
+            .uri("/buscarporid/{id}", idusuario)
+            .retrieve()
+            .bodyToMono(UsuarioDTO.class);
         return monoObj.block();
-        
     }
     
 

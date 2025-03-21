@@ -54,7 +54,9 @@
                     <td th:text="${usuario.telefonenumero}"></td>
                     <td th:text="${usuario.tiponumero}"></td>
                     <td class="acoes-btn">
-                        <button class="btn-editar">Editar</button>
+                        <button class="btn-editar" th:onclick="|window.location.href='/usuario/editar/' + ${usuario.idusuario}|">
+                            Editar
+                        </button>
                         <button class="btn-deletar" th:onclick="|if(confirm('Tem certeza que deseja deletar?')) window.location='@{/usuario/delete/{id}(id=${usuario.idusuario})}'|">
                             Excluir
                         </button>
